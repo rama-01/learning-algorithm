@@ -1,4 +1,4 @@
-import IList from "../type/IList"
+import IList from "../types/IList"
 // 定义队列接口
 // 继承线性列表接口
 interface IQueue<T> extends IList<T> {

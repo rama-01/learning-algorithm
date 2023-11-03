@@ -4,6 +4,6 @@ const queue = new ArrayQueue<string>()
 
 queue.enqueue('hello')
 queue.enqueue('world')
-queue.dequeue()
-queue.size()
+// queue.dequeue()
+console.log(queue.size());
 queue.peek()

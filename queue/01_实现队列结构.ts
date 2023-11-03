@@ -3,7 +3,7 @@ import IQueue from './IQueue'
 class ArrayQueue<T> implements IQueue<T> {
   private data: T[] = []
   enqueue(element: T): void {
-    this.data.push(element) //返回数组长度
+    this.data.push(element)
   }
   dequeue(): T | undefined {
     return this.data.shift()
