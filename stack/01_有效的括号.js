@@ -1,4 +1,4 @@
-import Stack from '../utils/ArrayStack.js'
+import Stack from './ArrayStack'
 
 const isValid = (s) => {
   // 使用栈结构

@@ -1,4 +1,4 @@
-import Stack from '../utils/ArrayStack.js'
+import Stack from './ArrayStack'
 
 const decimalToBinary = (num) => {
   const stack = new Stack()
