@@ -50,6 +50,7 @@ class LinkedList<T> {
       newNode.next = current
       previous!.next = newNode
     }
+    this.size++
     return true
   }
   // 删除指定位置的元素并返回该元素
@@ -87,6 +88,40 @@ class LinkedList<T> {
     }
     return current?.value ?? null
   }
+  // 更新/修改 update
+  update(value: T, position: number): boolean {
+    if (position < 0 || position >= this.size) return false
+    // 部分逻辑同链表get方法
+    let current = this.head
+    // 链表为空，报错或返回error
+    if (current === null) return false
+    let index = 0
+    while (index++ < position && current) {
+      current = current.next
+    }
+    current!.value = value
+    return true
+  }
+  // 获取索引 indexOf
+  indexOf(value: T): number {
+    let current = this.head
+    let index = 0
+    while (current) {
+      if (current!.value === value) return index
+      current = current.next
+      index++
+    }
+    return -1
+  }
+  // remove
+  remove(value: T): T | null {
+    const index = this.indexOf(value)
+    return this.removeAt(index)
+  }
+  // isEmpty
+  isEmpty(): boolean {
+    return this.size === 0
+  }
   // 遍历链表方法
   traverse() {
     const values: T[] = []
@@ -107,11 +142,30 @@ linkedList.append('c')
 linkedList.append('d')
 linkedList.traverse()
 // remove
-// linkedList.removeAt(0)
-// linkedList.traverse()
-// linkedList.removeAt(2)
-// linkedList.traverse()
+console.log('remove');
+// console.log(linkedList.removeAt(0));
+// console.log(linkedList.removeAt(0));
+// console.log(linkedList.removeAt(0));
+// console.log(linkedList.removeAt(0));
+// console.log(linkedList.removeAt(0));
 // get
-console.log(linkedList.get(0), linkedList.get(1), linkedList.get(2));
-
+// console.log(linkedList.get(0), linkedList.get(1), linkedList.get(2));
+// update
+// console.log('update');
+// console.log(linkedList.update('e', 3));
+// linkedList.traverse()
+// indexOf
+console.log('indexOf');
+// console.log(linkedList.indexOf('a'));
+// console.log(linkedList.indexOf('b'));
+// console.log(linkedList.indexOf('c'));
+// console.log(linkedList.indexOf('d'));
+// console.log(linkedList.indexOf('e'));
+// remove,isEmpty
+console.log('remove');
+console.log(linkedList.remove('a'));
+console.log(linkedList.remove('d'));
+console.log(linkedList.remove('b'));
+console.log(linkedList.remove('c'));
+linkedList.traverse()
 export { }

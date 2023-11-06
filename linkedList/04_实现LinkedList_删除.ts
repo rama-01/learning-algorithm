@@ -60,20 +60,21 @@ class LinkedList<T> {
     let current = this.head
     if (position === 0) {
       // 也可以使用断言
-      // ?.：这是 TypeScript 的可选链操作符。它用于检查 this.head 是否为 null 或 undefined，以避免在它的属性 next 上访问时产生错误。
+      // ?：这是 TypeScript 的可选链操作符。它用于检查 this.head 是否为 null 或 undefined，以避免在它的属性 next 上访问时产生错误。
       // ??：这是 TypeScript 的空值合并操作符。它用于判断表达式左边是否为 null 或 undefined，如果是，则返回右边的值，否则返回左边的值。
       this.head = current?.next ?? null
     } else {
       let previous: Node<T> | null = null
-      let current = this.head
       let index = 0
       while (index++ < position && current) {
+        // 双指针向后移动
         previous = current
         current = current.next
       }
       // 找到了position
       previous!.next = current?.next ?? null
     }
+    this.size--
     return current?.value ?? null
   }
   // 遍历链表方法
