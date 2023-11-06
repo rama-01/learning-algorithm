@@ -60,6 +60,26 @@ class LinkedList<T> {
   reverse2() {
     this.head = this.reverseRecursive(this.head)
   }
+  // 利用栈实现链表反转-数组模拟栈
+  reverse3(head: Node<T> | null): Node<T> | null {
+    if (head === null) return null
+    if (!head.next) return head
+    const stack: Node<T>[] = []
+    let current = this.head
+    while (current) {
+      stack.push(current)
+      current = current.next
+    }
+    const newHead: Node<T> = stack.pop()!
+    let currentNode = newHead
+    while (stack.length) {
+      const node = stack.pop()!
+      currentNode!.next = node
+      currentNode = currentNode.next
+    }
+    currentNode.next = null  //最后一个元素指向null，否则会引起循环引用报错
+    return currentNode
+  }
 }
 
 const linkedList = new LinkedList<string>()
@@ -69,5 +89,5 @@ linkedList.append('c')
 linkedList.append('d')
 linkedList.traverse()
 linkedList.reverse2()
-linkedList.traverse()
+// linkedList.reverse3()
 export { }
