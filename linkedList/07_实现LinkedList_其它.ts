@@ -113,6 +113,15 @@ class LinkedList<T> {
     }
     return -1
   }
+  // remove
+  remove(value: T): T | null {
+    const index = this.indexOf(value)
+    return this.removeAt(index)
+  }
+  // isEmpty
+  isEmpty(): boolean {
+    return this.size === 0
+  }
   // 遍历链表方法
   traverse() {
     const values: T[] = []
@@ -152,4 +161,11 @@ console.log('indexOf');
 // console.log(linkedList.indexOf('c'));
 // console.log(linkedList.indexOf('d'));
 // console.log(linkedList.indexOf('e'));
+// remove,isEmpty
+console.log('remove');
+console.log(linkedList.remove('a'));
+console.log(linkedList.remove('d'));
+console.log(linkedList.remove('b'));
+console.log(linkedList.remove('c'));
+linkedList.traverse()
 export { }
