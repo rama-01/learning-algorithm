@@ -16,6 +16,6 @@ node1.next.next = new ListNode(3)
 const newHead = reverseList(node1)
 let current = newHead
 while (current) {
-  console.log(current.val);
+  console.log(current.val)
   current = current.next
 }

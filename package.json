@@ -12,5 +12,8 @@
   "devDependencies": {
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "hy-algokit": "^1.4.0"
   }
 }
