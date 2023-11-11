@@ -169,7 +169,7 @@ class BSTree<T> {
     const current = this.searchNode(value)
     console.log('当前节点及父节点', current?.value, current?.parent?.value);
     if (!current) return false
-    /* 1.情况一：删除叶子节点 */
+    /* 情况一：删除叶子节点 */
     // 叶子节点判断条件，当前节点的左右叶子节点等于null
     // 在判断当前节点相对于父节点是左子节点还是右子节点
     if (current.left === null && current.right === null) {
@@ -179,15 +179,40 @@ class BSTree<T> {
       if (current === this.root) this.root = null
       if (current.isLeft()) current.parent!.left = null
       if (current.isRight()) current.parent!.right = null
-      // if (current === this.root) {
-      //   this.root = null
-      // } else if (current.isLeft()) {
-      //   current.parent!.left = null
-      // } else {
-      //   current.parent!.right = null
-      // }
+      /* if (current === this.root) {
+              this.root = null
+            } else if (current.isLeft()) {
+              current.parent!.left = null
+            } else {
+              current.parent!.right = null
+            } */
       // **以上两种写法无区别，第一种写法if后的条件语句最多有一个
     }
+
+    /* 情况二：只有一个节点 */
+    // 只有左子节点
+    if (current.right === null) {
+      if (current === this.root) this.root = current.left
+      if (current.isLeft()) current.parent!.left = current.left
+      if (current.isRight()) current.parent!.right = current.left
+    }
+    // 只有右子节点
+    if (current.left === null) {
+      if (current === this.root) this.root = current.right
+      if (current.isLeft()) current.parent!.left = current.right
+      if (current.isRight()) current.parent!.right = current.right
+    }
+
+    // refactor 重构错误
+    /* let pos: string = ''
+    // current.isLeft() ? pos = 'left' : 'right'
+    if (current.isLeft()) pos = 'left'
+    if (current.isRight()) pos = 'right'
+    if ((!!current.left || !!current.right) && (!!current.left || !!current.right)) {
+      if (current === this.root) this.root = current[pos]
+      if (current.isLeft()) current.parent!.left = current[pos]
+      if (current.isRight()) current.parent!.right = current[pos]
+    } */
     return true
   }
 }

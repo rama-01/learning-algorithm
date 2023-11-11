@@ -164,30 +164,56 @@ class BSTree<T> {
   searchInRecurse(value: T): boolean {
     return this.searchInRecursiveNode(this.root, value)
   }
+  /* 寻找前驱或后继节点, */
+  private getSuccessor(delNode: TreeNode<T>): TreeNode<T> {
+    let current = delNode.right
+    let successor: TreeNode<T> | null = null
+    while (current) {
+      successor = current
+      current = current.left
+      if (current) {
+        current.parent = successor  //这行代码的含义是？
+      }
+    }
+    // 特殊情况，successor === delNode.right
+    if (successor !== delNode.right) {
+      successor!.parent!.left = successor!.right
+      successor!.right = delNode.right
+    }
+    //断言，successor一定不为空
+    successor!.left = delNode.left
+    return successor!
+  }
   // 删除 搜索节点并返回父节点
   remove(value: T): boolean {
     const current = this.searchNode(value)
-    console.log('当前节点及父节点', current?.value, current?.parent?.value);
     if (!current) return false
-    /* 1.情况一：删除叶子节点 */
-    // 叶子节点判断条件，当前节点的左右叶子节点等于null
-    // 在判断当前节点相对于父节点是左子节点还是右子节点
+    /* 情况一：删除叶子节点 */
     if (current.left === null && current.right === null) {
-      // 检查左右节点
-      // 考虑边界情况
-      // 如果当前节点为根节点，那么其父节点等于null
       if (current === this.root) this.root = null
       if (current.isLeft()) current.parent!.left = null
       if (current.isRight()) current.parent!.right = null
-      // if (current === this.root) {
-      //   this.root = null
-      // } else if (current.isLeft()) {
-      //   current.parent!.left = null
-      // } else {
-      //   current.parent!.right = null
-      // }
-      // **以上两种写法无区别，第一种写法if后的条件语句最多有一个
     }
+
+    /* 情况二：只有一个节点 */
+    // 只有左子节点
+    if (current.right === null) {
+      if (current === this.root) this.root = current.left
+      if (current.isLeft()) current.parent!.left = current.left
+      if (current.isRight()) current.parent!.right = current.left
+    }
+    // 只有右子节点
+    if (current.left === null) {
+      if (current === this.root) this.root = current.right
+      if (current.isLeft()) current.parent!.left = current.right
+      if (current.isRight()) current.parent!.right = current.right
+    }
+
+    /* 情况三：两个叶子节点 */
+    const successor = this.getSuccessor(current)
+    if (current === this.root) this.root = successor
+    if (current.isLeft()) current.parent!.left = successor
+    if (current.isRight()) current.parent!.right = successor
     return true
   }
 }
@@ -220,12 +246,9 @@ bst.print()
 // console.log(bst.searchInRecurse(111));
 // bst.remove(8)
 // bst.remove(25)
-bst.remove(3)
-bst.remove(14)
+bst.remove(11)
 bst.print()
-bst.remove(5)
-bst.remove(13)
-
+bst.remove(7)
 bst.print()
 
 export default BSTree
