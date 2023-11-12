@@ -1,12 +1,11 @@
 import Node from "../types/INode";
-import { btPrint } from 'hy-algokit'
-
-class TreeNode<T> extends Node<T> {
+import { btPrint, PrintableNode } from 'hy-algokit'
+class TreeNode<T> extends Node<T> implements PrintableNode {
   left: TreeNode<T> | null = null
   right: TreeNode<T> | null = null
 }
 
-class BSTree<T> {
+class BSTree<T>  {
   // root最好不对外暴露
   private root: TreeNode<T> | null = null
   // 封装插入方法, 使用递归
@@ -42,24 +41,32 @@ class BSTree<T> {
   }
 }
 
-const bst = new BSTree<number>()
-bst.insert(11)
-bst.insert(7)
-bst.insert(15)
-bst.insert(5)
-bst.insert(3)
-bst.insert(9)
-bst.insert(8)
-bst.insert(10)
-bst.insert(13)
-bst.insert(12)
-bst.insert(14)
-bst.insert(20)
-bst.insert(18)
-bst.insert(25)
-bst.insert(6)
+// 定义手机类
+class Phone {
+  // name: string
+  // price: number
+  // constructor(name: string, price: number) {
+  //   this.name = name
+  //   this.price = price
+  // }
+  // 或者使用typescript的语法糖
+  constructor(public name: string, public price: number) { }
+  valueOf() {
+    return this.price
+  }
+}
 
-console.log(bst);
+const p1 = new Phone('apple', 129)
+const p2 = new Phone('xiaomi', 100)
+const p3 = new Phone('huawei', 133)
+const p4 = new Phone('oppo', 98)
+
+const bst = new BSTree<Phone>()
+bst.insert(p1)
+bst.insert(p2)
+bst.insert(p3)
+bst.insert(p4)
+
 bst.print()
 
 export default BSTree

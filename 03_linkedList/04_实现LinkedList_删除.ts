@@ -95,8 +95,8 @@ linkedList.append('b')
 linkedList.append('c')
 linkedList.append('d')
 linkedList.traverse()
-linkedList.removeAt(0)
+console.log(linkedList.removeAt(0));
 linkedList.traverse()
-linkedList.removeAt(2)
+console.log(linkedList.removeAt(2));
 linkedList.traverse()
 export { }
