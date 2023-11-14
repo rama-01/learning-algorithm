@@ -1,26 +1,35 @@
 class Heap<T> {
   data: T[] = []
   length: number = 0
+  isMax: boolean = true
+  constructor(arr: T[], isMax = true) {
+    if (!isMax) {
+      this.isMax = isMax
+    }
+    this.buildHeap(arr)
+  }
   private swap(i: number, j: number) {
     const tmp = this.data[j]
     this.data[j] = this.data[i]
     this.data[i] = tmp
   }
   // 从index开始进行下滤操作
-  private heapify_down(startIndex: number) {
+  private heapify(startIndex: number) {
     let index = startIndex
     // 循环的中止条件是，当前索引的左子节点 >= this.length
     while (2 * index + 1 < this.length) {
       let leftIndex = 2 * index + 1
       let rightIndex = leftIndex + 1
-      // let largerIndex = leftIndex
-      let largerIndex = this.data[leftIndex] < this.data[rightIndex] ? rightIndex : leftIndex
-      // if (rightIndex < this.length && this.data[leftIndex] < this.data[rightIndex]) {
-      //   largerIndex = rightIndex
-      // }
-      if (this.data[index] > this.data[largerIndex]) break
-      this.swap(index, largerIndex)
-      index = largerIndex
+      let extremeIndex
+      if (this.isMax) {
+        extremeIndex = this.data[leftIndex] < this.data[rightIndex] ? rightIndex : leftIndex
+        if (this.data[index] > this.data[extremeIndex]) break
+      } else {
+        extremeIndex = this.data[leftIndex] < this.data[rightIndex] ? leftIndex : rightIndex
+        if (this.data[index] < this.data[extremeIndex]) break
+      }
+      this.swap(index, extremeIndex)
+      index = extremeIndex
     }
   }
   insert(value: T) {
@@ -46,7 +55,7 @@ class Heap<T> {
     // this.data[res] = this.data[this.length - 1]
     this.data[0] = this.data.pop()!
     this.length--
-    this.heapify_down(0)
+    this.heapify(0)
     return this.data[0]
   }
   peek(): T | undefined {
@@ -65,24 +74,16 @@ class Heap<T> {
     // 从最后一个非叶子节点，进行下滤操作，
     let startIndex = Math.floor((this.length + 1) / 2)
     for (let i = startIndex; i >= 0; i--) {
-      this.heapify_down(i)
+      this.heapify(i)
     }
   }
 }
 
-const heap = new Heap<number>()
 const arr = [19, 100, 36, 17, 3, 25, 1, 2, 7]
-
-// for (const item of arr) {
-//   heap.insert(item)
-// }
-
-// console.log(heap.data);
-// heap.extract()
-// console.log(heap.data);
-
-heap.buildHeap(arr)
-console.log(heap.data);
+let heap = new Heap<number>(arr)
+console.log('最大堆', heap.data);
+heap = new Heap<number>(arr, false)
+console.log('最小堆', heap.data);
 
 
 export default Heap
