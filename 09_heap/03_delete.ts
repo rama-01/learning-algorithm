@@ -36,16 +36,16 @@ class Heap<T> {
     while (2 * index + 1 < this.length) {
       let leftIndex = 2 * index + 1
       let rightIndex = 2 * index + 2
-      let largerIndex = rightIndex
+      let largerIndex = leftIndex
       // let largerIndex = this.data[leftIndex] < this.data[rightIndex] ? rightIndex : leftIndex
       if (rightIndex < this.length && this.data[leftIndex] < this.data[rightIndex]) {
         largerIndex = rightIndex
       }
-      if (this.data[index] > this.data[rightIndex]) break
+      if (this.data[index] > this.data[largerIndex]) break
       this.swap(index, largerIndex)
       index = largerIndex
     }
-    return this.data[index]
+    return this.data[0]
   }
   peek(): T | undefined {
     return this.data[0]
