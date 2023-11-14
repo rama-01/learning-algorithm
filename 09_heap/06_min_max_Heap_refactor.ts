@@ -79,11 +79,4 @@ class Heap<T> {
   }
 }
 
-const arr = [19, 100, 36, 17, 3, 25, 1, 2, 7]
-let heap = new Heap<number>(arr)
-console.log('最大堆', heap.data);
-heap = new Heap<number>(arr, false)
-console.log('最小堆', heap.data);
-
-
 export default Heap
