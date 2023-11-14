@@ -1,6 +1,6 @@
 import Stack from './ArrayStack'
 
-const isValid = (s) => {
+function isValid(s: string): boolean {
   // 使用栈结构
   const stack = new Stack()
   for (let i = 0; i < s.length; i++) {

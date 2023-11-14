@@ -1,6 +1,6 @@
 import Stack from './ArrayStack'
 
-const decimalToBinary = (num) => {
+const decimalToBinary = (num: number): string => {
   const stack = new Stack()
   let res = num //初始条件
   let rem
