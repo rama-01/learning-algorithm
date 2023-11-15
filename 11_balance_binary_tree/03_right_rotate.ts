@@ -19,7 +19,7 @@ class AVLTreeNode<T> extends TreeNode<T> {
     return leftHeight - rightHeight
   }
   // 判断节点是否处于平衡
-  // getter访问器
+  // getter访问器，实例可以属性访问
   get isBalance(): boolean {
     const factor = this.getBalanceFactor()
     return factor >= -1 && factor <= 1
@@ -33,7 +33,7 @@ class AVLTreeNode<T> extends TreeNode<T> {
     // return null
     return this.isLeft() ? this.left : this.right
   }
-  // 左左情况LL
+  // 1.左左情况LL，右旋转
   rightRotate() {
     const isLeft = this.parent?.isLeft()
     const isRight = this.parent?.isRight()
@@ -41,14 +41,38 @@ class AVLTreeNode<T> extends TreeNode<T> {
     const pivot = this.left
     pivot!.parent = this.parent
     // 2. 处理pivot.right
+    this.left = pivot?.right ?? null
     if (pivot?.right) {
-      this.left = pivot.right
       pivot.right.parent = this
     }
     // 3.处理root
     this.parent = pivot
     pivot!.right = this
     // 4.处理pivot挂载位置
+    if (!pivot?.parent) {
+      return pivot
+    } else if (isLeft) {
+      pivot.parent.left = pivot
+    } else if (isRight) {
+      pivot.parent.right = pivot
+    }
+  }
+  // 2.右右情况RR，左旋转
+  leftRotate() {
+    const isLeft = this.parent?.isLeft()
+    const isRight = this.parent?.isRight()
+    // 1.pivot
+    const pivot = this.right
+    pivot!.parent = this.parent
+    // 2.left of pivot
+    this.right = pivot?.left ?? null
+    if (pivot?.left) {
+      pivot.left.parent = this
+    }
+    // 3.root/this
+    this.parent = pivot
+    pivot!.left = this
+    // 4 position in which pivot mounted
     if (!pivot?.parent) {
       return pivot
     } else if (isLeft) {
