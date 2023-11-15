@@ -2,6 +2,7 @@ import Node from "../types/INode";
 import { btPrint } from 'hy-algokit'
 
 export class TreeNode<T> extends Node<T> {
+  root: TreeNode<T> | null = null
   left: TreeNode<T> | null = null
   right: TreeNode<T> | null = null
   // 当前节点的父节点
@@ -10,6 +11,7 @@ export class TreeNode<T> extends Node<T> {
   // 下面这种写法是错误的，
   // isLeft: boolean = !!(this.parent && this.parent.left === this)
   // isRight: boolean = !!(this.parent && this.parent.right === this)
+  // 这里可以写成访问器属性 get
   isLeft(): boolean {
     return !!(this.parent && this.parent.left === this)
   }

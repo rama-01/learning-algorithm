@@ -56,6 +56,8 @@ class AVLTreeNode<T> extends TreeNode<T> {
     } else if (isRight) {
       pivot.parent.right = pivot
     }
+    // 返回最新的根节点
+    return pivot
   }
   // 2.右右情况RR，左旋转
   leftRotate() {
@@ -80,6 +82,7 @@ class AVLTreeNode<T> extends TreeNode<T> {
     } else if (isRight) {
       pivot.parent.right = pivot
     }
+    return pivot
   }
 }
 
@@ -100,3 +103,5 @@ avlTreeNode2.right = avlTreeNode3
 console.log(avlTreeNode.isBalance);
 console.log(avlTreeNode2.isBalance);
 console.log(avlTreeNode3.isBalance);
+
+export default AVLTreeNode
