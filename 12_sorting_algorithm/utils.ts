@@ -10,5 +10,13 @@ export const testSort = (sortFn: SortAlgoFn) => {
   const randomArr = Array.from({ length: 10 }, () => Math.floor(Math.random() * 100))
   console.log('before sorted', randomArr);
   const sortedArr = sortFn(randomArr)
-  console.log('after sorted', sortedArr);
+  console.log('after sorted', sortedArr, isSorted(sortedArr));
+}
+
+export const isSorted = (arr: number[]): boolean => {
+  const len = arr.length
+  for (let i = 0; i < len - 1; i++) {
+    if (arr[i + 1] < arr[i]) return false
+  }
+  return true
 }
