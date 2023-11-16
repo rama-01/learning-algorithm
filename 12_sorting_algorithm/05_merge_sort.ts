@@ -35,4 +35,10 @@ const mergeSort = (arr: number[]): number[] => {
 
 testSort(mergeSort)
 
+/* 1.经典递归案例 */
+const factorial = (n: number): number => {
+  if (n <= 1) return 1
+  return factorial(n - 1) * n
+}
 
+console.log(factorial(5));
