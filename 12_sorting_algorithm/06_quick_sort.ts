@@ -6,6 +6,12 @@ const quickSort = (arr: number[]): number[] => {
   function partition(left: number, right: number) {
     if (left >= right) return
     // 确定基准值
+    // 优化：为了避免pivot每次取到最大值或最小值，可以采取三数取中
+    const mid = left + Math.floor((left + right) / 2)
+    if (arr[left] > arr[right]) swap(arr, left, right)
+    if (arr[mid] > arr[right]) swap(arr, mid, right)
+    if (arr[left] > arr[mid]) swap(arr, left, mid)
+    swap(arr, mid, right)
     const pivot = arr[right]
     // 双指针
     let i = left
